@@ -1,13 +1,25 @@
-import React  from 'react';
-import {AppRegistry, View, Text} from "react-native";
-import {name as appName} from "../app.json";
+import {Navigation} from 'react-native-navigation';
 
-const App = () => {
-  return (
-    <View>
-      <Text>Hello world !</Text>
-    </View>
-  );
-};
+import LoginScreen from './scenes/login';
+import ShoppingScreen from './scenes/shopping';
 
-AppRegistry.registerComponent(appName, () => App);
+Navigation.registerComponent('Login', () => LoginScreen);
+Navigation.registerComponent('Shopping', () => ShoppingScreen);
+
+Navigation.events().registerAppLaunchedListener(async () => {
+  console.log('Launched app');
+
+  await Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Login',
+            },
+          },
+        ],
+      },
+    },
+  });
+});

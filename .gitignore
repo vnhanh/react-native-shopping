@@ -23,12 +23,12 @@ DerivedData
 
 # Android/IntelliJ
 #
-build/
 .idea
 .gradle
 local.properties
 *.iml
 *.hprof
+yarn.lock
 
 # node.js
 #
@@ -60,6 +60,7 @@ buck-out/
 /ios/Pods/
 /ios/build/
 /ios/shopping.xcworkspace/
+/ios/Podfile.lock
 /vendor/bundle/
 
 # Android
