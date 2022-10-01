@@ -1,6 +1,6 @@
 import {Navigation} from 'react-native-navigation';
 
-import LoginScreen from './scenes/login';
+import LoginScreen from './scenes/auth/login';
 import ShoppingScreen from './scenes/shopping';
 
 Navigation.registerComponent('Login', () => LoginScreen);

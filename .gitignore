@@ -29,6 +29,7 @@ local.properties
 *.iml
 *.hprof
 yarn.lock
+package-lock.json
 
 # node.js
 #
@@ -67,3 +68,4 @@ buck-out/
 /android/.gradle
 /android/build
 /android/app/build
+/android/app/src/main/res/drawable/*_svg_*.xml

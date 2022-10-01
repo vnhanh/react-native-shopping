@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import Colors from '../../constants/Colors';
+import {Platform, StyleSheet} from 'react-native';
+import Colors from '../../../constants/Colors';
 
 export default StyleSheet.create({
   root: {
@@ -17,7 +17,7 @@ export default StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
-    marginTop: 48,
+    marginTop: Platform.OS === 'android' ? 30 : 40,
     marginHorizontal: 16,
     marginBottom: 16,
   },
@@ -37,29 +37,46 @@ export default StyleSheet.create({
     flex: 1,
     paddingVertical: 0,
   },
+  validationMessage: {
+    color: Colors.red,
+    fontSize: 14,
+    fontWeight: '400',
+    marginLeft: 16,
+    marginTop: 8,
+  },
   forgotButton: {
     color: Colors.violet,
     fontWeight: '700',
     fontSize: 14,
   },
   loginButton: {
-    backgroundColor: Colors.violet,
     marginTop: 32,
     marginHorizontal: 16,
     padding: 16,
     borderRadius: 8,
   },
+  loginButtonEnable: {
+    backgroundColor: Colors.violet,
+  },
+  loginButtonDisable: {
+    backgroundColor: Colors.disabled,
+  },
   loginText: {
-    color: '#ffffff',
+    color: Colors.white,
     fontWeight: 'bold',
     fontSize: 16,
     alignSelf: 'center',
+  },
+  loginFailed: {
+    alignSelf: 'center',
+    marginTop: 16,
+    color: Colors.error,
   },
   socialLoginLine: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    marginTop: 24,
+    marginTop: 16,
   },
   socialLoginButton: {
     borderWidth: 2,
@@ -70,7 +87,7 @@ export default StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 24,
   },
-  registerLine: {
+  registerComponent: {
     marginHorizontal: 16,
     marginTop: 32,
     flexDirection: 'row',

@@ -3,7 +3,7 @@ import {Navigation} from 'react-native-navigation';
 
 import ScreenConstant from '../constants/ScreenConstants';
 
-import LoginScreen from './login';
+import LoginScreen from './auth/login';
 import ShoppingScreen from './shopping';
 
 const Screens = new Map();
