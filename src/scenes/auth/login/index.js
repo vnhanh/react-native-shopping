@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {
-  SafeAreaView,
   Text,
   TextInput,
   View,
@@ -13,8 +12,11 @@ import VectorImage from 'react-native-vector-image';
 import style from './style';
 import Colors from '../../../constants/Colors';
 import {validateUserName, validatePassword} from '../validation';
+import { loginAction } from "../../../network/login/LoginAction";
+import { useDispatch, useSelector } from "react-redux";
 
 function LoginScene() {
+  const dispatch = useDispatch();
   const [username, setUserName] = useState(null);
   const [usernameError, setUserNameError] = useState(null);
   useEffect(() => {
@@ -44,41 +46,11 @@ function LoginScene() {
 
   const [isInputValidated, setIsInputValidated] = useState(false);
 
-  const [loginAction, setLoginAction] = useState(null);
-  useEffect(() => {
-    if (loginAction !== null) {
-      console.log('Alan - fetching api...');
-      fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-          Accept: '*/*',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      })
-        .then(r => {
-          return r.json();
-        })
-        .then(res => {
-          // TODO: navigate to Home Screen
-        })
-        .catch(e => {
-          console.log(e);
-          setLoginFailed(true);
-        });
-    }
-
-    return () => {
-      console.log('useEffect - loginAction - do nothing');
-    };
-    // suppress eslint because we only need observe changing from stateloginAction
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginAction]);
-
   const [loginFailed, setLoginFailed] = useState(null);
+
+  const onSubmit = () => {
+    dispatch(loginAction(username, password));
+  }
 
   const renderTitle = () => (
     <View>
@@ -140,17 +112,16 @@ function LoginScene() {
 
   const renderLoginButton = () => (
     <TouchableHighlight
+      activeOpacity={0.6}
+      underlayColor={Colors.purple}
+      disabled={!isInputValidated}
+      onPress={onSubmit}
       style={[
         style.loginButton,
         isInputValidated === true
           ? style.loginButtonEnable
           : style.loginButtonDisable,
-      ]}
-      activeOpacity={0.6}
-      underlayColor={Colors.purple}
-      onPress={() => {
-        setLoginAction(loginAction === null ? true: !loginAction);
-      }}>
+      ]}>
       <Text style={style.loginText}>LOG IN</Text>
     </TouchableHighlight>
   );
@@ -194,15 +165,20 @@ function LoginScene() {
     </View>
   );
 
+  // TODO: separate this selector to another js file
+  const result = useSelector(state => state.loginReducer.result);
+
   return (
-    <SafeAreaView style={style.root}>
+    <View style={style.root}>
       {renderTitle()}
       {renderInputGroup()}
+      {result && (<Text>Login success</Text>)}
+      {result === false && (<Text>Login failed</Text>)}
       {renderLoginButton()}
       {renderLoginFailed()}
       {renderSocialLogin()}
       {renderRegisterNavigation()}
-    </SafeAreaView>
+    </View>
   );
 }
 

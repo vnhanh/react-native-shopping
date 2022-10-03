@@ -1,25 +1,28 @@
-import {Navigation} from 'react-native-navigation';
+import { Navigation } from "react-native-navigation";
+import registerScreens from "./scenes";
+import configureStore from "./AppStore";
+import ScreenConstants from "./constants/ScreenConstants";
 
-import LoginScreen from './scenes/auth/login';
-import ShoppingScreen from './scenes/shopping';
-
-Navigation.registerComponent('Login', () => LoginScreen);
-Navigation.registerComponent('Shopping', () => ShoppingScreen);
 
 Navigation.events().registerAppLaunchedListener(async () => {
-  console.log('Launched app');
+  configureStore(async store => {
+    console.log('Launched app');
+    registerScreens(store);
 
-  await Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Login',
+    // start app
+    await Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: ScreenConstants.LOGIN,
+              },
             },
-          },
-        ],
+          ],
+        },
       },
-    },
-  });
+    });
+  })
+
 });
