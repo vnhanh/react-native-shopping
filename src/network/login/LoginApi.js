@@ -2,7 +2,9 @@ import RequestAPI from "../../services/api/RequestAPI";
 
 const LoginApi = {
   async login(authData) {
-    return RequestAPI.post(authData);
+    const path = 'login';
+
+    return RequestAPI.post(path, authData);
   }
 }
 

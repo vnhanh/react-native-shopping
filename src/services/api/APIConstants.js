@@ -1,5 +1,5 @@
 const APIConstants = {
-  TimeoutDefault: 20000,
+  TimeoutDefault: 30000,
 }
 
 export default APIConstants;

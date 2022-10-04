@@ -10,13 +10,12 @@ function* login(authData) {
   try {
     const response = yield call(LoginApi.login, {username: username, password: password});
 
-    // console.log(`Alan - LoginSaga - increment() - got response: ${JSON.stringify(response)}`);
     yield put({
       type: LOGIN_SUCCESS,
       ...response
     })
   } catch (error) {
-    console.log(e);
+    console.log(error);
     yield put({
       type: LOGIN_FAILURE,
       ...error
@@ -24,6 +23,6 @@ function* login(authData) {
   }
 }
 
-const incrementSaga = [takeEvery(LOGIN_REQUEST, login)];
+const loginSaga = [takeEvery(LOGIN_REQUEST, login)];
 
-export default incrementSaga;
+export default loginSaga;

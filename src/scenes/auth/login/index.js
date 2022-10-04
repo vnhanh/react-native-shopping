@@ -49,7 +49,7 @@ function LoginScene() {
   const [loginFailed, setLoginFailed] = useState(null);
 
   const onSubmit = () => {
-    dispatch(loginAction(username, password));
+    dispatch(loginAction({username, password}));
   }
 
   const renderTitle = () => (
