@@ -6,7 +6,6 @@ import ScreenConstants from "./constants/ScreenConstants";
 
 Navigation.events().registerAppLaunchedListener(async () => {
   configureStore(async store => {
-    console.log('Launched app');
     registerScreens(store);
 
     // start app

@@ -18,11 +18,9 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.response.use(
-  originalRes => {
-    // console.log(`interceptors - response: ${JSON.stringify(originalRes)}`);
-    return originalRes;
-  }, async originalError => {
-    // console.log(`interceptors - response error: ${JSON.stringify(originalError)}`);
+  originalRes => originalRes,
+  async originalError => {
+    console.log(`interceptors - response error: ${JSON.stringify(originalError)}`);
     return Promise.reject(originalError);
   }
 )

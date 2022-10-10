@@ -173,9 +173,7 @@ function LoginScene() {
       {renderTitle()}
       {renderInputGroup()}
       {result && (<Text>Login success</Text>)}
-      {result === false && (<Text>Login failed</Text>)}
       {renderLoginButton()}
-      {renderLoginFailed()}
       {renderSocialLogin()}
       {renderRegisterNavigation()}
     </View>
