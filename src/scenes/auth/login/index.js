@@ -9,13 +9,16 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import VectorImage from 'react-native-vector-image';
-import style from './style';
 import Colors from '../../../constants/Colors';
-import {validateUserName, validatePassword} from '../validation';
-import { loginAction } from "../../../network/login/LoginAction";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
+import {Navigation} from 'react-native-navigation';
 
-function LoginScene() {
+import {validateUserName, validatePassword} from '../validation';
+import {loginAction} from '../../../network/login/LoginAction';
+import ScreenConstant from '../../../constants/ScreenConstants';
+import style from './style';
+
+function LoginScene(props) {
   const dispatch = useDispatch();
   const [username, setUserName] = useState(null);
   const [usernameError, setUserNameError] = useState(null);
@@ -28,7 +31,7 @@ function LoginScene() {
 
     setUserNameError(usernameValidation);
     setIsInputValidated(usernameValidation === '' && passwordError === '');
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   const [password, setPassword] = useState(null);
@@ -41,16 +44,14 @@ function LoginScene() {
 
     setPasswordError(passwordValidation);
     setIsInputValidated(usernameError === '' && passwordValidation === '');
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password]);
 
   const [isInputValidated, setIsInputValidated] = useState(false);
 
-  const [loginFailed, setLoginFailed] = useState(null);
-
   const onSubmit = () => {
     dispatch(loginAction({username, password}));
-  }
+  };
 
   const renderTitle = () => (
     <View>
@@ -126,11 +127,11 @@ function LoginScene() {
     </TouchableHighlight>
   );
 
-  const renderLoginFailed = () => (
-    <Text style={style.loginFailed}>
-      {loginFailed === true ? 'Login failed' : ''}
-    </Text>
-  );
+  const renderLoginFailed = () => {
+    Navigation.push(props.componentId, {
+      component: {name: ScreenConstant.ERROR_FULLSCREEN},
+    });
+  };
 
   const renderSocialLogin = () => (
     <View style={style.socialLoginLine}>
@@ -172,8 +173,9 @@ function LoginScene() {
     <View style={style.root}>
       {renderTitle()}
       {renderInputGroup()}
-      {result && (<Text>Login success</Text>)}
+      {result && <Text>Login success</Text>}
       {renderLoginButton()}
+      {result === false && renderLoginFailed()}
       {renderSocialLogin()}
       {renderRegisterNavigation()}
     </View>
