@@ -62,6 +62,7 @@ buck-out/
 /ios/build/
 /ios/shopping.xcworkspace/
 /ios/Podfile.lock
+/ios/shopping/Images.xcassets/*svg*.imageset
 /vendor/bundle/
 
 # Android
