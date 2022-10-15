@@ -1,6 +1,6 @@
 const ScreenConstant = {
   LOGIN: 'navigation.LoginScreen',
-  ERROR_FULLSCREEN: 'navigation.ErrorScreen',
+  ERROR_FULL: 'navigation.ErrorScreen',
   SHOPPING: 'navigation.ShoppingScreen',
 };
 
