@@ -1,12 +1,32 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, TouchableHighlight} from 'react-native';
+import VectorImage from 'react-native-vector-image';
 
-const ErrorScene = () => (
-  <View>
-    <Text>Title</Text>
-    <Text>message</Text>
-    <Button title="Retry" />
-  </View>
-);
+import Colors from '../../constants/Colors';
+import styles from './style';
+
+const ErrorScene = () => {
+  const onPressTryAgain = () => {};
+
+  return (
+    <View>
+      <VectorImage
+        source={require('../../assets/images/error.svg')}
+        style={styles.icon}
+      />
+      <Text style={styles.title}>Login Failed</Text>
+      <Text style={styles.description}>
+        Your username or email is incorrect
+      </Text>
+      <TouchableHighlight
+        activeOpacity={0.6}
+        underlayColor={Colors.errorDark}
+        onPress={onPressTryAgain}
+        style={styles.tryAgainBtn}>
+        <Text style={styles.tryAgainText}>Try again</Text>
+      </TouchableHighlight>
+    </View>
+  );
+};
 
 export default ErrorScene;

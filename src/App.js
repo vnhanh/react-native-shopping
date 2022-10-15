@@ -1,8 +1,7 @@
-import { Navigation } from "react-native-navigation";
-import registerScreens from "./scenes";
-import configureStore from "./AppStore";
-import ScreenConstants from "./constants/ScreenConstants";
-
+import {Navigation} from 'react-native-navigation';
+import registerScreens from './scenes';
+import configureStore from './AppStore';
+import ScreenConstants from './constants/ScreenConstants';
 
 Navigation.events().registerAppLaunchedListener(async () => {
   configureStore(async store => {
@@ -15,13 +14,12 @@ Navigation.events().registerAppLaunchedListener(async () => {
           children: [
             {
               component: {
-                name: ScreenConstants.LOGIN,
+                name: ScreenConstants.ERROR_FULLSCREEN,
               },
             },
           ],
         },
       },
     });
-  })
-
+  });
 });
