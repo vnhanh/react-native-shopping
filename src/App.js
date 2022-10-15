@@ -14,7 +14,12 @@ Navigation.events().registerAppLaunchedListener(async () => {
           children: [
             {
               component: {
-                name: ScreenConstants.ERROR_FULLSCREEN,
+                name: ScreenConstants.LOGIN,
+                options: {
+                  topBar: {
+                    visible: false,
+                  },
+                },
               },
             },
           ],
