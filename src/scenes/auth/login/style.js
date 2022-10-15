@@ -5,13 +5,13 @@ export default StyleSheet.create({
   root: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'whitesmoke',
+    backgroundColor: Colors.gray100,
   },
   logo: {
     transform: [{rotate: '-2deg'}],
     resizeMode: 'stretch',
     alignSelf: 'center',
-    marginTop: 24,
+    marginTop: Platform.OS === 'android' ? 32 : 48,
   },
   title: {
     fontSize: 24,

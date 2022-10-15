@@ -129,7 +129,9 @@ function LoginScene(props) {
 
   const renderLoginFailed = () => {
     Navigation.push(props.componentId, {
-      component: {name: ScreenConstant.ERROR_FULLSCREEN},
+      component: {
+        name: ScreenConstant.ERROR_FULL,
+      },
     });
   };
 
