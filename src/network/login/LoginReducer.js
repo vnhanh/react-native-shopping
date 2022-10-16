@@ -10,6 +10,7 @@ const loginReducer = (state = initialState, action) => {
     case LOGIN_REQUEST:
       return {
         ...state,
+        result: null,
         isLoading: true,
       };
     case LOGIN_SUCCESS:

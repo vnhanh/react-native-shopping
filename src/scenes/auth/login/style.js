@@ -104,4 +104,20 @@ export default StyleSheet.create({
     fontSize: 14,
     marginLeft: 4,
   },
+  overlay: {
+    backgroundColor: Colors.gray500,
+    opacity: 0.4,
+    flex: 1,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loading: {
+    width: 128,
+    height: 128,
+  },
 });

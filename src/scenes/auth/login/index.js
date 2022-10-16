@@ -1,25 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {
   Text,
   TextInput,
   View,
   TouchableHighlight,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import VectorImage from 'react-native-vector-image';
 import Colors from '../../../constants/Colors';
 import {useDispatch, useSelector} from 'react-redux';
-import {Navigation} from 'react-native-navigation';
 
 import {validateUserName, validatePassword} from '../validation';
 import {loginAction} from '../../../network/login/LoginAction';
-import ScreenConstant from '../../../constants/ScreenConstants';
 import style from './style';
+import AppNavigator from '../../../navigation/AppNavigator';
 
 function LoginScene(props) {
   const dispatch = useDispatch();
+  const {componentId} = props;
   const [username, setUserName] = useState(null);
   const [usernameError, setUserNameError] = useState(null);
   useEffect(() => {
@@ -48,6 +49,22 @@ function LoginScene(props) {
   }, [password]);
 
   const [isInputValidated, setIsInputValidated] = useState(false);
+
+  const loginResult = useSelector(state => state.loginReducer.result);
+  useEffect(() => {
+    const handleLoginResult = result => {
+      if (result === true) {
+        AppNavigator.openErrorScreen();
+      } else if (result === false) {
+        AppNavigator.openErrorScreen(componentId);
+      }
+    };
+
+    handleLoginResult(loginResult);
+    // TODO: should improve this useEffect()
+    // disable lint hooks for componentId
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginResult]);
 
   const onSubmit = () => {
     dispatch(loginAction({username, password}));
@@ -127,14 +144,6 @@ function LoginScene(props) {
     </TouchableHighlight>
   );
 
-  const renderLoginFailed = () => {
-    Navigation.push(props.componentId, {
-      component: {
-        name: ScreenConstant.ERROR_FULL,
-      },
-    });
-  };
-
   const renderSocialLogin = () => (
     <View style={style.socialLoginLine}>
       <TouchableOpacity activeOpacity={0.4} style={style.socialLoginButton}>
@@ -168,18 +177,26 @@ function LoginScene(props) {
     </View>
   );
 
-  // TODO: separate this selector to another js file
-  const result = useSelector(state => state.loginReducer.result);
+  const isLoading = useSelector(state => state.loginReducer.isLoading);
+  const renderLoading = () =>
+    isLoading && (
+      <View style={style.overlay}>
+        <ActivityIndicator
+          size="large"
+          color={Colors.violet}
+          style={style.loading}
+        />
+      </View>
+    );
 
   return (
     <View style={style.root}>
       {renderTitle()}
       {renderInputGroup()}
-      {result && <Text>Login success</Text>}
       {renderLoginButton()}
-      {result === false && renderLoginFailed()}
       {renderSocialLogin()}
       {renderRegisterNavigation()}
+      {renderLoading()}
     </View>
   );
 }

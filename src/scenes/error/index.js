@@ -1,12 +1,17 @@
 import React from 'react';
 import {View, Text, TouchableHighlight} from 'react-native';
+import {Navigation} from 'react-native-navigation';
 import VectorImage from 'react-native-vector-image';
 
 import Colors from '../../constants/Colors';
 import styles from './style';
 
-const ErrorScene = () => {
-  const onPressTryAgain = () => {};
+const ErrorScene = props => {
+  const onPressTryAgain = async () => {
+    const popResult = await Navigation.pop(props.componentId);
+
+    console.log(`Alan - onPressTryAgain() - popResult: ${popResult}`);
+  };
 
   return (
     <View>
