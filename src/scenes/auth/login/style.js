@@ -1,7 +1,7 @@
 import {Platform, StyleSheet} from 'react-native';
 import Colors from '../../../constants/Colors';
 
-export default StyleSheet.create({
+export const style = StyleSheet.create({
   root: {
     flex: 1,
     flexDirection: 'column',
@@ -51,8 +51,9 @@ export default StyleSheet.create({
   },
   loginButton: {
     marginTop: 32,
-    marginHorizontal: 16,
-    padding: 16,
+    height: 60,
+    alignSelf: 'center',
+    justifyContent: 'center',
     borderRadius: 8,
   },
   loginButtonEnable: {
@@ -121,3 +122,5 @@ export default StyleSheet.create({
     height: 128,
   },
 });
+
+export const HEIGHT_BUTTON_LOGIN = 60;

@@ -1,26 +1,30 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
-  TextInput,
   View,
   TouchableHighlight,
-  TouchableOpacity,
   ActivityIndicator,
+  Animated,
+  Dimensions,
 } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import VectorImage from 'react-native-vector-image';
 import Colors from '../../../constants/Colors';
 import {useDispatch, useSelector} from 'react-redux';
+import AppNavigator from '../../../navigation/AppNavigator';
 
 import {validateUserName, validatePassword} from '../validation';
 import {loginAction} from '../../../network/login/LoginAction';
-import style from './style';
-import AppNavigator from '../../../navigation/AppNavigator';
+import {style, HEIGHT_BUTTON_LOGIN} from './style';
+import LoginInput from './component/LoginInput';
+import LoginSocial from './component/LoginSocial';
 
 function LoginScene(props) {
   const dispatch = useDispatch();
-  const {componentId} = props;
+  const screenWidth = Dimensions.get('window').width;
+  const AnimatedHighlight =
+    Animated.createAnimatedComponent(TouchableHighlight);
+
   const [username, setUserName] = useState(null);
   const [usernameError, setUserNameError] = useState(null);
   useEffect(() => {
@@ -50,25 +54,10 @@ function LoginScene(props) {
 
   const [isInputValidated, setIsInputValidated] = useState(false);
 
-  const loginResult = useSelector(state => state.loginReducer.result);
-  useEffect(() => {
-    const handleLoginResult = result => {
-      if (result === true) {
-        AppNavigator.openErrorScreen();
-      } else if (result === false) {
-        AppNavigator.openErrorScreen(componentId);
-      }
-    };
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoginDisabled, setIsLoginDisabled] = useState(true);
 
-    handleLoginResult(loginResult);
-    // TODO: should improve this useEffect()
-    // disable lint hooks for componentId
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginResult]);
-
-  const onSubmit = () => {
-    dispatch(loginAction({username, password}));
-  };
+  const isLoadingAPI = useSelector(state => state.loginReducer.isLoading);
 
   const renderTitle = () => (
     <View>
@@ -83,92 +72,124 @@ function LoginScene(props) {
   );
 
   const renderInputGroup = () => (
-    <View>
-      <View style={style.inputLine}>
-        <MaterialIcons
-          name="alternate-email"
-          size={20}
-          color="#666"
-          style={style.icon}
-        />
-        <TextInput
-          placeholder="Email"
-          onChangeText={input => setUserName(input)}
-          style={style.textInput}
-        />
-      </View>
-      {renderUserNameError()}
-      <View style={style.inputLine}>
-        <MaterialIcons name="lock" size={20} color="#666" style={style.icon} />
-        <TextInput
-          placeholder="Password"
-          onChangeText={input => setPassword(input)}
-          secureTextEntry={true}
-          style={style.textInput}
-        />
-        <Text style={style.forgotButton}>Forgot ?</Text>
-      </View>
-      {renderPasswordError()}
-    </View>
+    <LoginInput
+      onChangeUserName={input => setUserName(input)}
+      onChangePassword={input => setPassword(input)}
+      usernameError={usernameError}
+      passwordError={passwordError}
+    />
   );
 
-  const renderUserNameError = () => {
-    if (!usernameError) {
-      return null;
-    }
-
-    return <Text style={style.validationMessage}>{usernameError}</Text>;
+  const onSubmit = () => {
+    dispatch(loginAction({username, password}));
   };
 
-  const renderPasswordError = () => {
-    if (!passwordError) {
-      return null;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const loginResult = useSelector(state => state.loginReducer.result);
+  // animation states
+  // const ANIM_NONE = 0;
+  // const ANIM_TO_CIRCLE_LOADING = 1;
+  // const ANIM_RESTORE_TO_BUTTON = 2;
+  // const ANIM_IN_CIRCLE_LOADING = 3;
+  // var animState = ANIM_NONE;
+  // animation durations
+  const ANIM_DURATION_TO_CIRCLE_LOADING = 1000;
+  const ANIM_DURATION_RESTORE_TO_BUTTON = 1000;
+  // var isJustRequestLogin = false;
+
+  const renderLoginButton = () => {
+    console.log(`Alan - renderLoginButton() - fadeAnim: ${fadeAnim._value}`);
+    console.log(`Alan - renderLoginButton() - loginResult: ${loginResult}`);
+    // console.log(`Alan - renderLoginButton() - animState: ${animState}`);
+    console.log(`Alan - renderLoginButton() - isLoading: ${isLoading}`);
+    console.log(`Alan - renderLoginButton() - isLoadingAPI: ${isLoadingAPI}`);
+
+    if (isLoadingAPI === true && loginResult === null) {
+      // animState = ANIM_TO_CIRCLE_LOADING;
+      console.log('Alan - renderLoginButton() - case isLoadingAPI === true}');
+
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: ANIM_DURATION_TO_CIRCLE_LOADING,
+        useNativeDriver: false,
+      }).start(() => {
+        // animState = ANIM_IN_CIRCLE_LOADING;
+        console.log('Alan - complete animation transform to circle loading');
+      });
+    } else if (isLoadingAPI === false && isLoading) {
+      // animState = ANIM_RESTORE_TO_BUTTON;
+      console.log(
+        `Alan - renderLoginButton() - case isLoadingAPI === false - isLoading: ${isLoading}`,
+      );
+
+      if (fadeAnim._value > 0) {
+        Animated.timing(fadeAnim).stop();
+      }
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: ANIM_DURATION_RESTORE_TO_BUTTON,
+        useNativeDriver: false,
+      }).start(() => {
+        // animState = ANIM_NONE;
+        setIsLoading(false);
+        console.log(
+          `Alan - complete animation restore transform - isLoading: ${isLoading}`,
+        );
+        if (loginResult === false) {
+          console.log('Alan - will open failure screen');
+          setTimeout(() => {
+            AppNavigator.openErrorScreen(props.componentId);
+          }, 300);
+        }
+      });
     }
 
-    return <Text style={style.validationMessage}>{passwordError}</Text>;
+    const animWidth = fadeAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [screenWidth - 32, HEIGHT_BUTTON_LOGIN],
+    });
+    const animRadius = fadeAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [8, 60],
+    });
+
+    return (
+      <AnimatedHighlight
+        activeOpacity={0.6}
+        underlayColor={Colors.purple}
+        disabled={isLoginDisabled}
+        onPress={onSubmit}
+        style={[
+          style.loginButton,
+          isInputValidated === true
+            ? style.loginButtonEnable
+            : style.loginButtonDisable,
+          {
+            width: animWidth,
+            borderRadius: animRadius,
+          },
+        ]}>
+        {isLoading ? (
+          <ActivityIndicator size="large" color={Colors.white} />
+        ) : (
+          <Text style={[style.loginText]}>LOG IN</Text>
+        )}
+      </AnimatedHighlight>
+    );
   };
 
-  const renderLoginButton = () => (
-    <TouchableHighlight
-      activeOpacity={0.6}
-      underlayColor={Colors.purple}
-      disabled={!isInputValidated}
-      onPress={onSubmit}
-      style={[
-        style.loginButton,
-        isInputValidated === true
-          ? style.loginButtonEnable
-          : style.loginButtonDisable,
-      ]}>
-      <Text style={style.loginText}>LOG IN</Text>
-    </TouchableHighlight>
-  );
+  useEffect(() => {
+    setIsLoginDisabled(isLoading || !isInputValidated);
+  }, [isLoading, isInputValidated]);
 
-  const renderSocialLogin = () => (
-    <View style={style.socialLoginLine}>
-      <TouchableOpacity activeOpacity={0.4} style={style.socialLoginButton}>
-        <VectorImage
-          width={24}
-          height={24}
-          source={require('../../../assets/images/google.svg')}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.4} style={style.socialLoginButton}>
-        <VectorImage
-          width={24}
-          height={24}
-          source={require('../../../assets/images/facebook.svg')}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.4} style={style.socialLoginButton}>
-        <VectorImage
-          width={24}
-          height={24}
-          source={require('../../../assets/images/twitter.svg')}
-        />
-      </TouchableOpacity>
-    </View>
-  );
+  useEffect(() => {
+    console.log(`Alan - isLoadingAPI changed to ${isLoadingAPI}`);
+    if (isLoadingAPI) {
+      setIsLoading(true);
+    }
+  }, [isLoadingAPI]);
+
+  const renderSocialLogin = () => <LoginSocial />;
 
   const renderRegisterNavigation = () => (
     <View style={style.registerComponent}>
@@ -177,18 +198,6 @@ function LoginScene(props) {
     </View>
   );
 
-  const isLoading = useSelector(state => state.loginReducer.isLoading);
-  const renderLoading = () =>
-    isLoading && (
-      <View style={style.overlay}>
-        <ActivityIndicator
-          size="large"
-          color={Colors.violet}
-          style={style.loading}
-        />
-      </View>
-    );
-
   return (
     <View style={style.root}>
       {renderTitle()}
@@ -196,7 +205,6 @@ function LoginScene(props) {
       {renderLoginButton()}
       {renderSocialLogin()}
       {renderRegisterNavigation()}
-      {renderLoading()}
     </View>
   );
 }

@@ -2,7 +2,8 @@ import axios from 'axios';
 import APIConstants from './APIConstants';
 import HttpStatusConstants from './HttpStatusConstants';
 
-const baseUrl = 'http://192.168.1.4:8080/';
+// set exact IP address to connect to server on Android
+const baseUrl = 'http://192.168.1.3:8080/';
 
 const defaultHeader = {
   Accept: '*/*',

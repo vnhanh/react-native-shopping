@@ -1,7 +1,7 @@
 import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} from './LoginTypes';
 
 const initialState = {
-  isLoading: false,
+  isLoading: null,
   result: null,
 };
 
