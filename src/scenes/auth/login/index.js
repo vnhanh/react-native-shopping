@@ -138,6 +138,10 @@ function LoginScreen(props) {
           setTimeout(() => {
             AppNavigator.openErrorScreen(props.componentId);
           }, 300);
+        } else {
+          setTimeout(() => {
+            AppNavigator.openShoppingScreen();
+          }, 300);
         }
       });
     }

@@ -1,10 +1,19 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect} from 'react';
+import {Text, SafeAreaView} from 'react-native';
 
-const ShoppingScreen = () => (
-  <View>
-    <Text>Shopping Screen</Text>
-  </View>
-);
+import style from './style';
+
+const ShoppingScreen = props => {
+
+  return (
+    <SafeAreaView>
+      <Text>Hi-Fi Shop & Service</Text>
+      <Text>
+        Audio shop on Rustaveli Ave 57. This shop offers both products and
+        services
+      </Text>
+    </SafeAreaView>
+  );
+};
 
 export default ShoppingScreen;

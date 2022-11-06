@@ -30,4 +30,25 @@ AppNavigator.openRegisterScreen = componentId => {
   });
 };
 
+AppNavigator.openShoppingScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: ScreenConstant.SHOPPING,
+              options: {
+                topBar: {
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+};
+
 export default AppNavigator;
