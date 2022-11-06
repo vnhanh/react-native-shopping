@@ -5,11 +5,13 @@ import {Provider} from 'react-redux';
 import ScreenConstant from '../constants/ScreenConstants';
 
 import LoginScreen from './auth/login';
+import RegisterScreen from './auth/register';
 import ErrorScreen from './error';
 import ShoppingScreen from './shopping';
 
 const Screens = new Map();
 Screens.set(ScreenConstant.LOGIN, LoginScreen);
+Screens.set(ScreenConstant.REGISTER, RegisterScreen);
 Screens.set(ScreenConstant.ERROR_FULL, ErrorScreen);
 Screens.set(ScreenConstant.SHOPPING, ShoppingScreen);
 

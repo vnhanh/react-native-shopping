@@ -17,4 +17,17 @@ AppNavigator.openErrorScreen = componentId => {
   });
 };
 
+AppNavigator.openRegisterScreen = componentId => {
+  Navigation.push(componentId, {
+    component: {
+      name: ScreenConstant.REGISTER,
+      options: {
+        topBar: {
+          visible: false,
+        },
+      },
+    },
+  });
+};
+
 export default AppNavigator;

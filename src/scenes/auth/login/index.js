@@ -19,8 +19,9 @@ import LoginInput from './component/LoginInput';
 import LoginSocial from './component/LoginSocial';
 import Colors from '../../../constants/Colors';
 
-function LoginScene(props) {
+function LoginScreen(props) {
   const dispatch = useDispatch();
+  const {componentId} = props;
 
   // animation durations
   const ANIM_DURATION_TO_CIRCLE_LOADING = 300;
@@ -178,7 +179,13 @@ function LoginScene(props) {
   const renderRegisterNavigation = () => (
     <View style={style.registerComponent}>
       <Text style={style.registerSuggestion}>Don't have an account yet ?</Text>
-      <Text style={style.registerNow}>Register now</Text>
+      <Text
+        style={style.registerNow}
+        onPress={() => {
+          AppNavigator.openRegisterScreen(componentId);
+        }}>
+        Register now
+      </Text>
     </View>
   );
 
@@ -194,4 +201,4 @@ function LoginScene(props) {
   );
 }
 
-export default LoginScene;
+export default LoginScreen;
