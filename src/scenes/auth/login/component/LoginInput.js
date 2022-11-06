@@ -1,6 +1,7 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {Text, TextInput, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Icons from 'react-native-vector-icons/FontAwesome';
 
 import {style} from '../style';
 
@@ -13,6 +14,7 @@ const LoginInput = props => {
     onSubmitLogin,
   } = props;
   const refPassword = useRef(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const usernameError = validationError?.usernameError;
   const passwordError = validationError?.passwordError;
@@ -55,10 +57,21 @@ const LoginInput = props => {
           ref={refPassword}
           placeholder="Password"
           onChangeText={onChangePassword}
-          secureTextEntry={true}
+          secureTextEntry={!showPassword}
           editable={!disabled}
           onSubmitEditing={onSubmitLogin}
           style={style.textInput}
+        />
+        <Icons
+          name={showPassword ? 'eye' : 'eye-slash'}
+          size={20}
+          color="#666"
+          onPress={() => {
+            if (disabled) {
+              return;
+            }
+            setShowPassword(!showPassword);
+          }}
         />
       </View>
       {renderPasswordError()}
