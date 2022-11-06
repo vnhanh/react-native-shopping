@@ -1,10 +1,10 @@
-const validateUserName = username => {
+const validateUsername = username => {
   let message = '';
 
   if (username === '') {
-    message = 'username is empty';
+    message = 'email is empty';
   } else if (!/^[a-zA-Z\d]*$/.test(username)) {
-    message = 'username should not include special character';
+    message = 'email should not include special character';
   }
 
   return message;
@@ -22,4 +22,4 @@ const validatePassword = password => {
   return message;
 };
 
-export {validateUserName, validatePassword};
+export {validateUsername, validatePassword};

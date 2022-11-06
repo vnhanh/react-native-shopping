@@ -5,24 +5,20 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {style} from '../style';
 
 const LoginInput = props => {
-  const {onChangeUserName, onChangePassword, usernameError, passwordError} =
-    props;
+  const {onChangeUserName, onChangePassword, validationError} = props;
 
-  const renderUserNameError = () => {
-    if (!usernameError) {
-      return null;
-    }
+  const emailError = validationError?.emailError;
+  const passwordError = validationError?.passwordError;
 
-    return <Text style={style.validationMessage}>{usernameError}</Text>;
-  };
+  const renderEmailError = () =>
+    emailError ? (
+      <Text style={style.validationMessage}>{emailError}</Text>
+    ) : null;
 
-  const renderPasswordError = () => {
-    if (!passwordError) {
-      return null;
-    }
-
-    return <Text style={style.validationMessage}>{usernameError}</Text>;
-  };
+  const renderPasswordError = () =>
+    passwordError ? (
+      <Text style={style.validationMessage}>{passwordError}</Text>
+    ) : null;
 
   return (
     <View>
@@ -39,7 +35,7 @@ const LoginInput = props => {
           style={style.textInput}
         />
       </View>
-      {renderUserNameError()}
+      {renderEmailError()}
       <View style={style.inputLine}>
         <MaterialIcons name="lock" size={20} color="#666" style={style.icon} />
         <TextInput

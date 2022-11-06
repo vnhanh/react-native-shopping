@@ -1,8 +1,6 @@
-import loginSaga  from "./login/LoginSaga";
-import { all } from "@redux-saga/core/effects";
+import loginSaga from './login/LoginSaga';
+import {all} from '@redux-saga/core/effects';
 
 export default function* rootSaga() {
-  yield all([
-    ...loginSaga,
-  ]);
+  yield all([...loginSaga]);
 }
