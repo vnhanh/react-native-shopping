@@ -45,6 +45,9 @@ export const style = StyleSheet.create({
     marginTop: 8,
   },
   forgotButton: {
+    alignSelf: 'flex-end',
+    marginRight: 16,
+    marginTop: 8,
     color: Colors.violet,
     fontWeight: '700',
     fontSize: 14,

@@ -70,8 +70,18 @@ function LoginScene(props) {
   const loginResult = useSelector(state => state.loginReducer.result);
 
   const onPressLoginButton = () => {
+    const validation = isFailedValidation();
+
+    if (validation) {
+      return null;
+    }
     dispatch(loginAction(loginInput));
   };
+
+  const isFailedValidation = () =>
+    validationError === null ||
+    validationError.usernameError !== '' ||
+    validationError.passwordError !== '';
 
   const renderTitle = () => (
     <View>
@@ -87,16 +97,20 @@ function LoginScene(props) {
 
   const renderInputGroup = () => (
     <LoginInput
+      forwardRef
       onChangeUserName={input => onChangeUsername(input)}
       onChangePassword={input => onChangePassword(input)}
       validationError={validationError}
+      disabled={isLoadingAPI}
+      onSubmitLogin={onPressLoginButton}
     />
   );
 
-  const isFailedValidation = () =>
-    validationError === null ||
-    validationError.usernameError !== '' ||
-    validationError.passwordError !== '';
+  const renderForgotPassword = () => (
+    <View>
+      <Text style={style.forgotButton}>Forgot ?</Text>
+    </View>
+  );
 
   const renderLoginButton = () => {
     const validation = isFailedValidation();
@@ -172,6 +186,7 @@ function LoginScene(props) {
     <View style={style.root}>
       {renderTitle()}
       {renderInputGroup()}
+      {renderForgotPassword()}
       {renderLoginButton()}
       {renderSocialLogin()}
       {renderRegisterNavigation()}

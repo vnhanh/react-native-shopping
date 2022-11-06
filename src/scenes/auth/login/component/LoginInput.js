@@ -1,18 +1,25 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Text, TextInput, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {style} from '../style';
 
 const LoginInput = props => {
-  const {onChangeUserName, onChangePassword, validationError} = props;
+  const {
+    onChangeUserName,
+    onChangePassword,
+    validationError,
+    disabled,
+    onSubmitLogin,
+  } = props;
+  const refPassword = useRef(null);
 
-  const emailError = validationError?.emailError;
+  const usernameError = validationError?.usernameError;
   const passwordError = validationError?.passwordError;
 
-  const renderEmailError = () =>
-    emailError ? (
-      <Text style={style.validationMessage}>{emailError}</Text>
+  const renderUsernameError = () =>
+    usernameError ? (
+      <Text style={style.validationMessage}>{usernameError}</Text>
     ) : null;
 
   const renderPasswordError = () =>
@@ -30,21 +37,29 @@ const LoginInput = props => {
           style={style.icon}
         />
         <TextInput
-          placeholder="Email"
+          placeholder="username"
           onChangeText={onChangeUserName}
+          returnKeyType="next"
+          blurOnSubmit={false}
+          onSubmitEditing={() => {
+            refPassword.current?.focus();
+          }}
+          editable={!disabled}
           style={style.textInput}
         />
       </View>
-      {renderEmailError()}
+      {renderUsernameError()}
       <View style={style.inputLine}>
         <MaterialIcons name="lock" size={20} color="#666" style={style.icon} />
         <TextInput
+          ref={refPassword}
           placeholder="Password"
           onChangeText={onChangePassword}
           secureTextEntry={true}
+          editable={!disabled}
+          onSubmitEditing={onSubmitLogin}
           style={style.textInput}
         />
-        <Text style={style.forgotButton}>Forgot ?</Text>
       </View>
       {renderPasswordError()}
     </View>
