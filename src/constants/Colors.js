@@ -18,6 +18,7 @@ const Colors = {
   gray800: '#343A40',
   gray900: '#212529',
   disabled: '#a0a0a0',
+  airBlue: '#5D8AA8',
 };
 
 export default Colors;

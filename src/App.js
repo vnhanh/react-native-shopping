@@ -14,7 +14,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
           children: [
             {
               component: {
-                name: ScreenConstants.LOGIN,
+                name: ScreenConstants.SHOPPING,
                 options: {
                   topBar: {
                     visible: false,
