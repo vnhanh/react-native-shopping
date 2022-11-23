@@ -1,12 +1,13 @@
 const Colors = {
+  disabled: '#a0a0a0',
+  error: '#ff3333',
+  errorDark: '#CD104D',
   white: '#ffffff',
   black: '#000000',
   violet: '#B637FB',
   purple: '#9505E3',
   orchid: '#7E1E80',
   ebony: '#3D393B',
-  error: '#ff3333',
-  errorDark: '#CD104D',
   red: '#ff0000',
   gray100: '#F8F9FA',
   gray200: '#E9ECEF',
@@ -17,8 +18,16 @@ const Colors = {
   gray700: '#495057',
   gray800: '#343A40',
   gray900: '#212529',
-  disabled: '#a0a0a0',
   airBlue: '#5D8AA8',
+  green100: '#c6ebd5',
+  green200: '#a1debb',
+  green300: '#79d2a0',
+  green400: '#59c88b',
+  green500: '#34be76',
+  green600: '#2cae6b',
+  green700: '#239b5d',
+  green800: '#1b8a52',
+  green900: '#0b6a3c',
 };
 
 export default Colors;

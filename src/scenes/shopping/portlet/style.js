@@ -44,15 +44,71 @@ const style = StyleSheet.create({
     marginTop: 12,
     marginLeft: 16,
   },
-  frame: {
-    width: '45%',
-    height: 100,
-    backgroundColor: Colors.gray200,
-    borderRadius: 4,
-    marginTop: 8,
+  item: {
+    width: 170,
+    marginRight: 16,
   },
   image: {
-    height: 100,
+    width: 170,
+    height: 170,
+    borderRadius: 8,
+  },
+  discountBg: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 36,
+    height: 18,
+    backgroundColor: Colors.green800,
+    borderTopLeftRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  discountValue: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: Colors.white,
+  },
+  name: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: Colors.black,
+    marginTop: 4,
+  },
+  available: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 16,
+    marginTop: 4,
+  },
+  availableCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: 10,
+  },
+  availableBgColor: {
+    backgroundColor: Colors.green800,
+  },
+  unavailableBgColor: {
+    backgroundColor: Colors.errorDark,
+  },
+  availableText: {
+    fontSize: 12,
+    fontWeight: '500',
+    marginLeft: 4,
+  },
+  availableTextColor: {
+    color: Colors.green800,
+  },
+  unavailableTextColor: {
+    color: Colors.errorDark,
+  },
+  price: {
+    fontSize: 11,
+    fontWeight: '500',
+    color: Colors.gray600,
+    marginTop: 4,
   },
 });
 
