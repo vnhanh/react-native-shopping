@@ -1,6 +1,6 @@
 import {Navigation} from 'react-native-navigation';
 
-import ScreenConstant from '../common/constants/Screens';
+import ScreenConstant from '../constants/Screens';
 
 const AppNavigator = () => {};
 

@@ -11,7 +11,7 @@ import {
 import VectorImage from 'react-native-vector-image';
 import {useDispatch, useSelector} from 'react-redux';
 
-import AppNavigator from '../../../navigation/AppNavigator';
+import AppNavigator from '../../../common/navigation/AppNavigator';
 import {validateUsername, validatePassword} from '../validation';
 import {loginAction} from '../../../services/login/LoginAction';
 import {style, HEIGHT_BUTTON_LOGIN} from './style';
