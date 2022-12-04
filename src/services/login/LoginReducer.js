@@ -2,6 +2,7 @@ import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} from './LoginTypes';
 
 const initialState = {
   isLoading: null,
+  // TODO: should refactor this prop name to isSuccess
   result: null,
 };
 

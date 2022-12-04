@@ -4,11 +4,9 @@ import {View, Text, Pressable, Image, FlatList} from 'react-native';
 import style from './style';
 
 const Portlet = props => {
-  const {onPressSeeAllButton} = props;
+  const {list, onPressSeeAllButton} = props;
 
   const renderHeader = section => {
-    // console.log(`Alan - section: ${JSON.stringify(section)}`);
-
     return (
       <View style={style.section}>
         <Text style={style.title}>{section.header.title || 'Products'}</Text>

@@ -30,6 +30,9 @@ axiosInstance.interceptors.response.use(
 );
 
 const RequestAPI = {
+  get: path =>
+    axiosInstance.get(baseUrl + path).then(response => response.data),
+  // TODO: should change the param name authData to data for common post apis
   post(path, authData) {
     return axiosInstance
       .post(baseUrl + path, authData)
