@@ -11,21 +11,21 @@ const LoginSocial = () => {
         <VectorImage
           width={24}
           height={24}
-          source={require('../../../../assets/images/google.svg')}
+          source={require('../../../../common/assets/images/google.svg')}
         />
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.4} style={style.socialLoginButton}>
         <VectorImage
           width={24}
           height={24}
-          source={require('../../../../assets/images/facebook.svg')}
+          source={require('../../../../common/assets/images/facebook.svg')}
         />
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.4} style={style.socialLoginButton}>
         <VectorImage
           width={24}
           height={24}
-          source={require('../../../../assets/images/twitter.svg')}
+          source={require('../../../../common/assets/images/twitter.svg')}
         />
       </TouchableOpacity>
     </View>

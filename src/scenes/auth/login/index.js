@@ -89,7 +89,7 @@ function LoginScreen(props) {
       <VectorImage
         width={240}
         height={160}
-        source={require('../../../assets/images/online-shopping.svg')}
+        source={require('../../../common/assets/images/online-shopping.svg')}
         style={style.logo}
       />
       <Text style={style.title}>Login</Text>

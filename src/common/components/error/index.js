@@ -16,7 +16,7 @@ const ErrorScene = props => {
   return (
     <View>
       <VectorImage
-        source={require('../../../assets/images/error.svg')}
+        source={require('../../../common/assets/images/error.svg')}
         style={styles.icon}
       />
       <Text style={styles.title}>Login Failed</Text>
