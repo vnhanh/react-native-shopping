@@ -13,11 +13,11 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import AppNavigator from '../../../navigation/AppNavigator';
 import {validateUsername, validatePassword} from '../validation';
-import {loginAction} from '../../../network/login/LoginAction';
+import {loginAction} from '../../../services/login/LoginAction';
 import {style, HEIGHT_BUTTON_LOGIN} from './style';
 import LoginInput from './component/LoginInput';
 import LoginSocial from './component/LoginSocial';
-import Colors from '../../../constants/Colors';
+import Colors from '../../../common/constants/Colors';
 
 function LoginScreen(props) {
   const dispatch = useDispatch();

@@ -2,11 +2,11 @@ import React from 'react';
 import {Navigation} from 'react-native-navigation';
 import {Provider} from 'react-redux';
 
-import ScreenConstant from '../constants/ScreenConstants';
+import ScreenConstant from '../common/constants/Screens';
 
 import LoginScreen from './auth/login';
 import RegisterScreen from './auth/register';
-import ErrorScreen from './error';
+import ErrorScreen from '../common/components/error';
 import ShoppingScreen from './shopping';
 
 const Screens = new Map();

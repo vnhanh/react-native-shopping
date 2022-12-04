@@ -2,7 +2,7 @@ import {Navigation} from 'react-native-navigation';
 
 import registerScreens from './scenes';
 import configureStore from './AppStore';
-import ScreenConstants from './constants/ScreenConstants';
+import Screens from './common/constants/Screens';
 import initRealm from './database/initiation';
 
 Navigation.events().registerAppLaunchedListener(async () => {
@@ -17,7 +17,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
           children: [
             {
               component: {
-                name: ScreenConstants.SHOPPING,
+                name: Screens.SHOPPING,
                 options: {
                   topBar: {
                     visible: false,

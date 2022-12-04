@@ -1,4 +1,4 @@
-import RequestAPI from '../../services/api/RequestAPI';
+import RequestAPI from '../common/RequestAPI';
 
 const LoginApi = {
   async login(authData) {

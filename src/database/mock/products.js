@@ -1,7 +1,7 @@
 const mockProducts = [
   {
     name: 'Tai nghe True Wireless Sony WF-C500',
-    price: '1798.00',
+    price: '1798.60',
     discount: 10,
     available: true,
     imgUrl:
@@ -9,14 +9,14 @@ const mockProducts = [
   },
   {
     name: 'Tai nghe Campfire Ara',
-    price: '899.00',
+    price: '899.80',
     discount: 0,
     available: false,
     imgUrl: 'https://tainghe.com.vn/media/product/250_2984_ara_1_ws.jpg',
   },
   {
     name: 'Tai nghe Campfire Andromeda 2020',
-    price: '1620.00',
+    price: '1620.10',
     discount: 16,
     available: true,
     imgUrl:
@@ -48,7 +48,7 @@ const mockProducts = [
   },
   {
     name: 'Tai nghe Blon BL03 có Mic',
-    price: '1299.00',
+    price: '1299.20',
     discount: 7,
     available: true,
     imgUrl: 'https://tainghe.com.vn/media/product/250_2679_1.JPG',

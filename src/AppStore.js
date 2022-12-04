@@ -1,8 +1,8 @@
-import { applyMiddleware, compose, createStore } from "redux";
-import allReducers from "./network/reducers";
-import { createLogger } from "redux-logger/src";
-import createSagaMiddleware from "@redux-saga/core";
-import rootSaga from "./network/sagas";
+import {applyMiddleware, compose, createStore} from 'redux';
+import allReducers from './services/reducers';
+import {createLogger} from 'redux-logger/src';
+import createSagaMiddleware from '@redux-saga/core';
+import rootSaga from './services/sagas';
 
 const configureStore = callback => {
   const sagaMiddleWare = createSagaMiddleware();
@@ -10,11 +10,11 @@ const configureStore = callback => {
   const enhancers = [];
   const store = compose(
     applyMiddleware(sagaMiddleWare, loggerMiddleWare),
-    ...enhancers
+    ...enhancers,
   )(createStore)(allReducers);
 
   sagaMiddleWare.run(rootSaga);
   callback(store);
-}
+};
 
 export default configureStore;

@@ -1,7 +1,7 @@
 import Realm from 'realm';
 
 import ProductSchema from './objects/product';
-import mockProducts from './mockData/products';
+import mockProducts from './mock/products';
 
 const initRealm = async () => {
   const realm = await Realm.open({
