@@ -4,7 +4,6 @@ import HttpStatusConstants from './HttpStatusConstants';
 
 // set exact IP address to connect to server on Android
 const baseUrl = 'http://192.168.1.3:8080/';
-// const baseUrl = 'http://192.168.101.172:8080/';
 
 const defaultHeader = {
   Accept: '*/*',

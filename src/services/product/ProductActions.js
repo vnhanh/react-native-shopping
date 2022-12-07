@@ -1,8 +1,8 @@
 import {GET_PRODUCTS_REQUEST} from './ProductType';
 
 const ProductActions = {
-  getProducts: {
-    type: GET_PRODUCTS_REQUEST,
+  getProducts() {
+    return {type: GET_PRODUCTS_REQUEST};
   },
 };
 

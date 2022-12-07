@@ -1,11 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useEffect} from 'react';
 import {Text, SafeAreaView} from 'react-native';
 
 import styles from './style';
 
 import Portlet from './portlet';
 import {useDispatch, useSelector} from 'react-redux';
-import {getProducts} from '../../services/product/ProductAction';
+import ProductActions from '../../services/product/ProductActions';
 
 function ShoppingScreen() {
   const dispatch = useDispatch();
@@ -13,15 +13,14 @@ function ShoppingScreen() {
     state => state.productReducer.isLoading,
   );
   const products = useSelector(state => state.productReducer.products);
-
-  useCallback(() => {
-    console.log('Alan - ShoppingScreen - getProducts - useCallback');
-    dispatch(getProducts());
-  }, [dispatch]);
-
   const onPressSeeAllButton = () => {
     console.log('you just pressed See All button');
   };
+
+  useEffect(() => {
+    console.log('Alan - ShoppingScreen - getProducts - useEffect');
+    dispatch(ProductActions.getProducts());
+  }, [dispatch]);
 
   return (
     <SafeAreaView style={styles.root}>
